@@ -25,5 +25,6 @@
             </font>
         </JFXButton>
         <JFXSnackbar fx:id="snack" maxWidth="1.7976931348623157E308" minWidth="800.0" prefWidth="800.0" />
+      <JFXPasswordField layoutX="212.0" layoutY="159.0" maxWidth="377.0" minWidth="377.0" prefHeight="31.0" prefWidth="377.0" />
     </children>
 </Pane>
