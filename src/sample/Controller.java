@@ -1,15 +1,19 @@
 package sample;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXSnackbar;
+import com.jfoenix.controls.JFXToggleButton;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.*;
+import javafx.scene.paint.Paint;
 
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
@@ -28,6 +32,16 @@ public class Controller implements Initializable {
     JFXButton button;
     @FXML
     Pane pane;
+    @FXML
+    JFXPasswordField pwd;
+    @FXML
+    JFXToggleButton toggle;
+    Scene scene;
+
+    public void setScene(Scene scene) {
+        this.scene = scene;
+    }
+
     static int nbaffichage = 0;
 
     static String sha1(String input) throws NoSuchAlgorithmException {
@@ -45,7 +59,7 @@ public class Controller implements Initializable {
         try {
             int delay = 10000;
             String toshow = "";
-            String enteredText = text.getText().toString();
+            String enteredText = toggle.isSelected() ? pwd.getText().toString() : text.getText().toString();
             String myString = Controller.sha1(enteredText);
             StringSelection stringSelection = new StringSelection(myString);
             Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -56,27 +70,59 @@ public class Controller implements Initializable {
             } else {
                 delay = 5000;
             }
+            if (toggle.isSelected())
+                enteredText = "PWD";
             toshow = toshow + "SHA1(" + enteredText + ") -> " + myString;
 
             nbaffichage++;
+            if (toggle.isSelected()) {
+                pwd.requestFocus();
+            } else {
+                text.requestFocus();
+            }
             snack.show(toshow, 6000);
         } catch (Exception ex1) {
+            ex1.printStackTrace();
+        }
+    }
+
+    public void handleChanges() {
+        text.setText("");
+        pwd.setText("");
+        //
+        text.setVisible(!toggle.isSelected());
+        pwd.setVisible(toggle.isSelected());
+        if (toggle.isSelected()) {
+            //secure mode,pwd is active
+            System.out.println(scene.getHeight());
+            scene.getStylesheets().clear();
+            scene.getStylesheets().add("sample/style/style2.css");
+            pwd.requestFocus();
+            button.setStyle("-fx-background-color: #a10d81;");
+            toggle.setToggleColor(Paint.valueOf("#a10d81"));
+        } else {
+            //not secure mode,text is active
+            scene.getStylesheets().clear();
+            scene.getStylesheets().add("sample/style/style.css");
+            text.requestFocus();
+            button.setStyle("-fx-background-color: teal;");
+            toggle.setToggleColor(Paint.valueOf("teal"));
 
         }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Thread thread = new Thread(new Runnable() {
-            public void run() {
-                System.out.println("ffff");
-            }
-        });
         snack.registerSnackbarContainer(pane);
         snack.refreshPopup();
         button.setOnAction(e -> {
             operate();
         });
+
+        toggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            handleChanges();
+        });
+
         text.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
