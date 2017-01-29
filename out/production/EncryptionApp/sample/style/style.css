@@ -1,0 +1,19 @@
+.jfx-snackbar-content {
+    -fx-background-color: teal;
+}
+
+.jfx-snackbar-toast {
+    -fx-text-fill: whitesmoke;
+}
+
+.jfx-snackbar-action {
+    -fx-text-fill: #ff4081;
+}
+
+#button:hover {
+    -fx-text-fill: #ffffff;
+}
+
+#button{
+    -fx-text-fill: silver;
+}

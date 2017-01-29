@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="EncryptionApp:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/EncryptionApp_jar</output-path>
+    <root id="archive" name="EncryptionApp.jar">
+      <element id="module-output" name="EncryptionApp" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../Outils/Librairies/Java/commons-codec-1.7.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../Outils/Librairies/Java/jfoenix.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
