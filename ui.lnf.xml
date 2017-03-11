@@ -1,6 +1,6 @@
 <application>
   <component name="UISettings">
-    <option name="FONT_FACE" value="DejaVu Sans" />
+    <option name="FONT_FACE" value="Droid Sans" />
     <option name="HIDE_TOOL_STRIPES" value="false" />
     <option name="SHOW_MAIN_TOOLBAR" value="true" />
     <option name="OVERRIDE_NONIDEA_LAF_FONTS" value="true" />
